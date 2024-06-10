@@ -1,0 +1,109 @@
+/**
+ * src/styles/settings.scss
+ *
+ * Configures SASS variables and Vuetify overwrites
+ */
+
+// https://vuetifyjs.com/features/sass-variables/`
+// @use 'vuetify/settings' with (
+//   $color-pack: false
+// );
+
+
+.font-size-10{
+    font-size: 10px;
+}
+.position-fixed{
+    position: fixed;
+}
+
+.position-sticky{
+    position: sticky;
+}
+.fs-12{
+    font-size: 12px;
+}
+.fs-10{
+    font-size: 10px;
+}
+.fs-14{
+    font-size: 14px;
+}
+.fs-16{
+    font-size: 16px;
+}
+.text-muted{
+    color: #adadaa;
+}
+.w-0{
+    width: 100% !important;
+}
+.v-text-field .v-input__control .v-input__slot {
+    min-height: auto !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.sticky-header {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background: white; /* Ensure background color matches the card */
+    z-index: 1; /* Ensure it's above other content */
+  }
+  
+  .scrollable-content {
+    max-height: calc(100vh - 100px); /* Adjust this value based on the height of the sticky header */
+    min-height: calc(100vh - 150px); /* Adjust this value based on the height of the sticky header */
+    overflow-y: auto;
+  }
+  .v-list-item{
+    border-bottom: solid 1px #ddd;
+  }
+
+// Style for the custom checkbox
+.custom-checkbox {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  height: 30px; // Use height variable
+  width: 30px; // Use width variable
+
+  // Hide the default checkbox
+  input {
+    opacity: 0;
+  }
+
+  // Style the checkmark
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #eee;
+
+    // Show the checkmark when the checkbox is checked
+    &:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+  }
+
+  // Show the checkmark when the checkbox is checked
+  input:checked + .checkmark:after {
+    display: block;
+  }
+
+  // Style the checkmark's appearance
+  .checkmark:after {
+    left: 30px / 3; // Adjust position based on height
+    top: 30px / 6; // Adjust position based on height
+    width: 30px / 6; // Adjust size based on height
+    height:30px / 3; // Adjust size based on height
+    border: solid black;
+    border-width: 0 30px / 12 30px / 12 0; // Adjust size based on height
+    transform: rotate(45deg);
+  }
+}
