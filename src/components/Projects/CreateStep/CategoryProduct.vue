@@ -4,7 +4,7 @@
       <v-list-subheader inset>Categorys</v-list-subheader>
 
       <v-list-item
-        class="px-3 mx-3"
+        class="px-3 mx-2"
         v-for="category in categorys"
         :key="category.id"
         :title="category.name"
