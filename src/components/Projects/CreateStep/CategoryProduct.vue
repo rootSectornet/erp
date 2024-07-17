@@ -29,7 +29,7 @@
 </template>
   
 <script lang="ts">
-import { defineComponent,computed,ref } from 'vue'
+import { defineComponent,computed,ref, onMounted } from 'vue'
 import { useProductStore } from '../../../stores/products';
 import { CategoryProduct } from '../../../models/categoryProduct';
 export default defineComponent({
@@ -49,6 +49,11 @@ export default defineComponent({
           productStore.searchProducts("");
           selectedCategory.value = null;
         };
+
+        onMounted(()=>{
+          productStore.fetchAll();
+        })
+
         return {
             categorys,
             products,

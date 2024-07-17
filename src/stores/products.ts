@@ -2,20 +2,8 @@
 import { defineStore } from 'pinia';
 import { Product, ProductStep, Workers } from '../models/product';
 import { CategoryProduct } from '../models/categoryProduct';
-
-
-const sampleCategoryProducts : CategoryProduct[] = [
-  {
-    id:1,
-    name:"Canopy",
-    active:true
-  },
-  {
-    id:2,
-    name:"Kursi",
-    active:true
-  }
-]
+import CategoryService from '../services/category';
+const categoryService = new CategoryService();
 
 const sampleProductSteps : ProductStep[] = [
   {
@@ -164,7 +152,7 @@ interface ProductState {
 
 export const useProductStore = defineStore('products', {
   state: () : ProductState => ({
-      categorys : sampleCategoryProducts,
+      categorys : [],
       products: sampleProducts,
       category : {} as CategoryProduct,
       product: {} as Product
@@ -184,6 +172,11 @@ export const useProductStore = defineStore('products', {
     },
   },
   actions: {
+    fetchAll(){
+      categoryService.fetchAll().then((result:CategoryProduct[])=>{
+        this.categorys = result
+      })
+    },
     setSelectedProduct(value: Product) {
       this.$state.products = this.products.map((v:Product)=>{
         return {...v,selected:v.id == value.id}
