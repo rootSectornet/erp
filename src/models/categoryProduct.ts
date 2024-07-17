@@ -1,5 +1,5 @@
 export interface CategoryProduct{
     id:number;
     name:string;
-    active:boolean;
+    is_active:boolean;
 }

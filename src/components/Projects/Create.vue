@@ -74,14 +74,6 @@ import { useProductStore } from '../../stores/products';
           )
         },
         {
-          id:5,
-          key:"TOOLS",
-          title:"Pilih Peralatan",
-          component: defineAsyncComponent(() =>
-              import('./CreateStep/Tools.vue')
-          )
-        },
-        {
           id:6,
           key:"RESULT",
           title:"Perkiraan Biaya Proyek",
