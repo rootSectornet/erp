@@ -2,8 +2,8 @@
     <div>
         <v-card class="d-flex flex-column justify-start px-3 py-3"  color="indigo">
             <p class="fs-10">Total biaya</p>
-            <p class="fs-16 font-weight-bold py-3">{{ toRupiah(totalBiaya) }}</p>
-            <p class="fs-12">{{totalMaterial}} <span class="">Material</span></p>
+            <p class="fs-16 font-weight-bold py-3">{{ toRupiah(totalCost) }}</p>
+            <p class="fs-12">{{total}} <span class="">{{ title }}</span></p>
         </v-card>
     </div>
 </template>
@@ -12,11 +12,15 @@
     import {toRupiah} from '../../helpers/currency'
     export default defineComponent({
         props: {
-            totalBiaya: {
+            totalCost: {
                 type: String,
                 required: true
             },
-            totalMaterial: {
+            title: {
+                type: String,
+                required: true
+            },
+            total: {
                 type: Number,
                 required: true
             }

@@ -1,5 +1,8 @@
 <template>
   <div class="px-3">
+    
+    <SummaryCard :totalCost="totalCoststep?.toString()" :title="`Step & ${totalDuration} Hari Pengerjaan`" :total="sortedProductSteps.length"/>
+    <v-divider class="my-2"></v-divider>
     <CardStep v-for="step in sortedProductSteps" :key="step.id" :step="step"/>
     <v-fab
           key="mdi-plus"
@@ -29,6 +32,17 @@
       const sortedProductSteps = computed(() => {
         return [...(productStore.product.productSteps || [])].sort((a, b) => a.rank - b.rank);
       });
+      const totalCoststep = computed(()=>{
+        return productStore.product.productSteps?.reduce((total,step)=>{
+          return Number(total) + Number(step.totalCost)
+        },0)
+      })
+      
+      const totalDuration = computed(()=>{
+        return productStore.product.productSteps?.reduce((total,step)=>{
+          return Number(total) + Number(step.maxDuration)
+        },0)
+      })
       const showAdd = ref(false);
       const closeAdd = ()=>{
         showAdd.value = false
@@ -40,7 +54,9 @@
           closeAdd,
           showAdd,
           openAdd,
-          sortedProductSteps
+          sortedProductSteps,
+          totalCoststep,
+          totalDuration
       }
     }
   });

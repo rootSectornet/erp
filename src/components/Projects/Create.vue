@@ -74,14 +74,6 @@ import { useProductStore } from '../../stores/products';
           )
         },
         {
-          id:4,
-          key:"WORKER",
-          title:"Pilih Pekerja & Set Durasi",
-          component: defineAsyncComponent(() =>
-              import('./CreateStep/Worker.vue')
-          )
-        },
-        {
           id:5,
           key:"TOOLS",
           title:"Pilih Peralatan",

@@ -1,8 +1,7 @@
 // stores/drawer.ts
 import { defineStore } from 'pinia';
-import { Product, ProductStep } from '../models/product';
+import { Product, ProductStep, Workers } from '../models/product';
 import { CategoryProduct } from '../models/categoryProduct';
-import { id } from 'vuetify/locale';
 
 
 const sampleCategoryProducts : CategoryProduct[] = [
@@ -24,21 +23,30 @@ const sampleProductSteps : ProductStep[] = [
     name:"Potong Besi & Prepare Bahan",
     rank:0,
     notes:"Harus Benar Benar Presisi sesuai ukuran & juga harus tepat waktu",
-    maxDuration:1
+    maxDuration:1,
+    totalCost:"0",
+    additionalCost:"0",
+    workers:[] as Workers[]
   },
   {
     id:2,
     name:"Pemasangan Kerangka",
     rank:1,
     notes:"Harus Benar Benar Presisi sesuai ukuran & juga harus tepat waktu",
-    maxDuration:1
+    maxDuration:1,
+    totalCost:"0",
+    additionalCost:"0",
+    workers:[] as Workers[]
   },
   {
     id:3,
     name:"Finshing",
     rank:2,
     notes:"Harus Benar Benar Presisi sesuai ukuran & juga harus tepat waktu",
-    maxDuration:1
+    maxDuration:1,
+    totalCost:"0",
+    additionalCost:"0",
+    workers:[] as Workers[]
   },
 ]
 
@@ -195,6 +203,35 @@ export const useProductStore = defineStore('products', {
     addSteps(step:ProductStep){
       this.product.productSteps.push(step)
     },
+    addWorkertoStep(step:ProductStep,worker:Workers,idProduct:number){
+     const productIndex = this.products.findIndex((v)=>{
+      return v.id == idProduct
+     })
+     if(productIndex >= 0){
+        const stepindex = this.products[productIndex].productSteps.findIndex((v)=>v.id == step.id)
+        if(stepindex >= 0){
+          this.products[productIndex].productSteps[stepindex].workers.push(worker)
+          this.products[productIndex].productSteps[stepindex].totalCost += Number(worker.salary)
+        }
+     }
+    },
+    editWorker(step:ProductStep,worker:Workers,idProduct:number){
+      const productIndex = this.products.findIndex((v)=>{
+       return v.id == idProduct
+      })
+
+      if(productIndex >= 0){
+         const stepindex = this.products[productIndex].productSteps.findIndex((v)=>v.id == step.id)
+          if(stepindex >= 0){
+          const workerIndex =  this.products[productIndex].productSteps[stepindex].workers.findIndex((v:Workers)=>v.id == worker.id)
+          if(workerIndex >= 0){
+            this.products[productIndex].productSteps[stepindex].totalCost = Number(this.products[productIndex].productSteps[stepindex].totalCost) -  Number(this.products[productIndex].productSteps[stepindex].workers[workerIndex].salary)
+            this.products[productIndex].productSteps[stepindex].workers[workerIndex] = worker
+            this.products[productIndex].productSteps[stepindex].totalCost += Number(worker.salary)
+          }
+         }
+      }
+    },
     deleteSteps(idStep: number) {
       // Filter out the step to be deleted
       this.product.productSteps = this.product.productSteps.filter((v: ProductStep) => v.id !== idStep);
@@ -203,6 +240,12 @@ export const useProductStore = defineStore('products', {
       this.product.productSteps.forEach((step, index) => {
         step.rank = index; // Assign new rank starting from 1
       });
+    },
+    editDurationStep(idStep:number,duration:number){
+      const indexStep = this.product.productSteps.findIndex((v:ProductStep)=>v.id == idStep);
+      if(indexStep >= 0){
+        this.product.productSteps[indexStep].maxDuration = duration
+      }
     },
     changeRank(position:string,idStep:number){
       const steps : ProductStep[] = this.product.productSteps

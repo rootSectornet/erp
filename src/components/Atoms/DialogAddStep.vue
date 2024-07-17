@@ -78,7 +78,10 @@ export default defineComponent({
         maxDuration:Number(values.maxDuration),
         name:values.stepTitle,
         rank:lastIdStep.value - 1,
-        notes:stepNotes.value
+        notes:stepNotes.value,
+        additionalCost:"0",
+        totalCost:"0",
+        workers:[]
       })
       emit('close');
     });

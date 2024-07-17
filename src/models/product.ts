@@ -1,3 +1,5 @@
+import { Position } from "./position";
+
 export interface Product {
     id: number;
     name: string;
@@ -15,4 +17,15 @@ export interface ProductStep {
     notes?: string;
     rank: number;
     maxDuration:number;
+    workers:Workers[];
+    totalCost:string;
+    additionalCost:string;
+}
+
+
+export interface Workers {
+    id:number;
+    position:Position;
+    salary:string;
+    customSalary:string;
 }

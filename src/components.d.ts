@@ -30,6 +30,7 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Step: typeof import('./components/Projects/CreateStep/Step.vue')['default']
+    SummaryCard: typeof import('./components/Atoms/SummaryCard.vue')['default']
     TextWithIcon: typeof import('./components/Atoms/TextWithIcon.vue')['default']
     Toolbar: typeof import('./components/Molecules/Toolbar.vue')['default']
     Tools: typeof import('./components/Projects/CreateStep/Tools.vue')['default']

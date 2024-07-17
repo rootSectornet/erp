@@ -1,6 +1,6 @@
 <template>
     <div class="px-4">
-        <MaterialSummary :totalBiaya="calculateTotalCost().toString()" :totalMaterial="projectMaterials.length"/>
+        <SummaryCard :totalCost="calculateTotalCost().toString()" title="Materials" :total="projectMaterials.length"/>
         <v-fab
           key="mdi-plus"
           color="green"
