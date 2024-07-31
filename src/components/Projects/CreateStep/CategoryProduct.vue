@@ -20,7 +20,7 @@
             color="blue-darken-4"
             icon="mdi-information"
             variant="text"
-          >{{ countProducst(category.id) }}</v-btn>
+          >{{ category.products_count }}</v-btn>
         </template>
       </v-list-item>
     </v-list>
@@ -38,12 +38,10 @@ export default defineComponent({
         const categorys = computed(() => productStore.listCategorys);
         const products = computed(() => productStore.listProducts);
         productStore.searchProducts("");
-        const countProducst = (idCategory:number)=>{
-          return products.value.filter((e)=>e.idCategory==idCategory).length
-        }
         const selectedCategory = ref<CategoryProduct | null>(null);
         const selectCategory = (idCategory: CategoryProduct) => {
           selectedCategory.value = idCategory;
+          productStore.fetchProduct(idCategory.id);
         };
         const clearSelection = () => {
           productStore.searchProducts("");
@@ -57,7 +55,6 @@ export default defineComponent({
         return {
             categorys,
             products,
-            countProducst,
             selectedCategory,
             selectCategory,
             clearSelection

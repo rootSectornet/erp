@@ -40,7 +40,7 @@ import { CategoryProduct } from '../../../models/categoryProduct';
             }
             const searchQuery = ref('');
             const productStore = useProductStore();
-            const products = computed(() => props.category ? productStore.listProducts.filter((v)=>v.idCategory==props.category.id) : []);
+            const products = computed(() => props.category ? productStore.listSearchProducts : []);
             const search = ()=>{
                 productStore.searchProducts(searchQuery.value);
             }

@@ -14,7 +14,13 @@
               Back
             </v-btn>
            <p>{{ listCreateStep[indexActiveState].title }}</p>
-            <v-btn append-icon="mdi-chevron-right" variant="text"  :disabled="indexActiveState == listCreateStep.length-1" @click="toggleStep(true)">
+            <v-btn append-icon=" mdi mdi-send" v-if="indexActiveState == listCreateStep.length - 1"  variant="text"   @click="saveProject()">
+              <template v-slot:append>
+                <v-icon color="secondary"></v-icon>
+              </template>
+              Simpan
+            </v-btn>
+            <v-btn append-icon="mdi-chevron-right" variant="text" v-else  :disabled="indexActiveState == listCreateStep.length-1" @click="toggleStep(true)">
               <template v-slot:append>
                 <v-icon color="secondary"></v-icon>
               </template>
@@ -36,6 +42,14 @@
   import { useProjectStore } from '../../stores/projects';
 import {  ProjectStateStep } from '../../models/project';
 import { useProductStore } from '../../stores/products';
+  import { useMaterialStore } from '../../stores/materials';
+  import { useCustomerStore } from '../../stores/customer';
+import CategoryProduct from './CreateStep/CategoryProduct.vue';
+import Material from './CreateStep/Material.vue';
+import Step from './CreateStep/Step.vue';
+import Customer from './CreateStep/Customer.vue';
+import Result from './CreateStep/Result.vue';
+import {ProjectPayload,PayloadMaterial,ProjectStep} from '../../models/project';
   export default defineComponent({
     setup() {
       const projectStore = useProjectStore();
@@ -53,33 +67,31 @@ import { useProductStore } from '../../stores/products';
           id:1,
           key:"PRODUCT",
           title:"Pilih Product",
-          component: defineAsyncComponent(() =>
-              import('./CreateStep/CategoryProduct.vue')
-          )
+          component: CategoryProduct
         },
         {
           id:2,
           key:"MATERIAL",
           title:"Pilih Material",
-          component: defineAsyncComponent(() =>
-              import('./CreateStep/Material.vue')
-          )
+          component: Material
         },
         {
           id:3,
           key:"STEP",
           title:"Step Pengerjaan",
-          component: defineAsyncComponent(() =>
-              import('./CreateStep/Step.vue')
-          )
+          component: Step
+        },
+        {
+          id:4,
+          key:"CUSTOMER",
+          title:"Data Customer",
+          component: Customer
         },
         {
           id:6,
           key:"RESULT",
           title:"Perkiraan Biaya Proyek",
-          component: defineAsyncComponent(() =>
-              import('./CreateStep/Result.vue')
-          )
+          component:Result
         },
       ];
       const indexActiveState = computed(() => projectStore.stateCreateActive);
@@ -94,6 +106,30 @@ import { useProductStore } from '../../stores/products';
       
       const productStore = useProductStore();
       const product = computed(() => productStore.selectedProduct);
+      
+      const materialStore = useMaterialStore();
+      const customerStore = useCustomerStore();
+      const payloadMaterial : PayloadMaterial[] = materialStore.listProjectdMaterial.map((v) : PayloadMaterial=>{
+        return {
+          customPrice:Number(v.customPrice || 0),
+          material_id:v.material.id,
+          qty:v.qty
+        }
+      })
+      const saveProject = ()=>{
+        const payload : ProjectPayload = {
+          customer : {
+            ...customerStore.customer,
+            city_id : Number(customerStore.customer.city_id?.id)
+          },
+          custom_profit : projectStore.persentaseCustomLaba,
+          materials : payloadMaterial,
+          product_id : productStore.product.id,
+          project_steps : projectStore.listProjectSteps,
+          transport_cost:Number(projectStore.costTransport)
+        }
+        projectStore.createProject(payload);
+      }
       return {
         showCreate,
         product,
@@ -101,7 +137,8 @@ import { useProductStore } from '../../stores/products';
         listCreateStep,
         activeComponent,
         toggleStep,
-        capitalizeFirstLetter
+        capitalizeFirstLetter,
+        saveProject
       };
     },
   });

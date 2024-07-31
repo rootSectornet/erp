@@ -43,6 +43,7 @@ import { computed, defineComponent, ref, watch } from 'vue';
 import { useField, useForm } from 'vee-validate';
 import { object, string, number } from 'yup';
 import { useProductStore } from '../../stores/products';
+import { useProjectStore } from '../../stores/projects';
 export default defineComponent({
   props: {
     show: {
@@ -53,7 +54,8 @@ export default defineComponent({
   setup(props, { emit }) {
     
     const productStore = useProductStore();
-    const lastIdStep = computed(() => (productStore.product.productSteps?.length || 0) + 1);
+    const projectStore = useProjectStore();
+    const lastIdStep = computed(() => (projectStore.listProjectSteps?.length || 0) + 1);
     const localShow = ref(props.show);
     watch(() => props.show, (newVal) => {
       localShow.value = newVal;
@@ -73,9 +75,12 @@ export default defineComponent({
     const maxDuration = useField('maxDuration');
 
     const submit = handleSubmit(values => {
-      productStore.addSteps({
+      projectStore.addStep({
         id:lastIdStep.value + 1,
-        maxDuration:Number(values.maxDuration),
+        created_at:"",
+        is_active:true,
+        updated_dt:"",
+        duration:Number(values.maxDuration),
         name:values.stepTitle,
         rank:lastIdStep.value - 1,
         notes:stepNotes.value,

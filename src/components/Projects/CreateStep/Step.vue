@@ -1,9 +1,9 @@
 <template>
   <div class="px-3">
     
-    <SummaryCard :totalCost="totalCoststep?.toString()" :title="`Step & ${totalDuration} Hari Pengerjaan`" :total="sortedProductSteps.length"/>
+    <SummaryCard :totalCost="totalCoststep?.toString()" :title="`Step & ${totalDuration} Hari Pengerjaan`" :total="sortedProjectSteps.length"/>
     <v-divider class="my-2"></v-divider>
-    <CardStep v-for="step in sortedProductSteps" :key="step.id" :step="step"/>
+    <CardStep v-for="step in sortedProjectSteps" :key="step.id" :step="step"/>
     <v-fab
           key="mdi-plus"
           color="green"
@@ -24,23 +24,33 @@
 
 
 <script lang="ts">
-  import { computed, defineComponent,ref } from 'vue';
+  import { computed, defineComponent,ref,onMounted } from 'vue';
   import { useProductStore } from '../../../stores/products';
+  import { useProjectStore } from '../../../stores/projects';
   export default defineComponent({
     setup(){
       const productStore = useProductStore();
-      const sortedProductSteps = computed(() => {
-        return [...(productStore.product.productSteps || [])].sort((a, b) => a.rank - b.rank);
+
+      const projectStore = useProjectStore();
+
+      onMounted(()=>{
+        productStore.fetchProductsteps(productStore.product.id)
+        
+      })
+
+
+      const sortedProjectSteps = computed(() => {
+        return [...(projectStore.listProjectSteps || [])].sort((a, b) => a.rank - b.rank);
       });
       const totalCoststep = computed(()=>{
-        return productStore.product.productSteps?.reduce((total,step)=>{
+        return projectStore.listProjectSteps?.reduce((total,step)=>{
           return Number(total) + Number(step.totalCost)
         },0)
       })
       
       const totalDuration = computed(()=>{
-        return productStore.product.productSteps?.reduce((total,step)=>{
-          return Number(total) + Number(step.maxDuration)
+        return projectStore.listProjectSteps?.reduce((total,step)=>{
+          return Number(total) + Number(step.duration)
         },0)
       })
       const showAdd = ref(false);
@@ -54,7 +64,7 @@
           closeAdd,
           showAdd,
           openAdd,
-          sortedProductSteps,
+          sortedProjectSteps,
           totalCoststep,
           totalDuration
       }

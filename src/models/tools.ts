@@ -13,3 +13,10 @@ export interface Tools {
     type?:ToolTypes;
     subType?:SubToolTypes;
 }
+
+export interface Config{
+    key:string;
+    value:string;
+    created_at:string;
+    updated_at:string;
+}

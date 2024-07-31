@@ -11,7 +11,7 @@
           <v-chip>
             {{ toRupiah(step.totalCost) }}
           </v-chip>
-          <TextWithIcon icon="mdi mdi-clock-time-three-outline" :text="`Max : ${step.maxDuration} hari`" class="py-2" @click="toggleEditMaxDuration(true)"></TextWithIcon>
+          <TextWithIcon icon="mdi mdi-clock-time-three-outline" :text="`Max : ${step.duration} hari`" class="py-2" @click="toggleEditMaxDuration(true)"></TextWithIcon>
         </div>
         <v-divider class="my-2"></v-divider>
           <v-chip v-for="worker in step.workers"
@@ -171,20 +171,24 @@
     </v-card>
 </template>
 <script lang="ts">
-    import { defineComponent,ref,PropType, computed } from 'vue'
-    import { ProductStep, Workers } from '../../models/product';
+    import { defineComponent,ref,PropType, computed,onMounted } from 'vue'
+    import { ProjectStep } from '../../models/project';
+    import { Workers } from '../../models/project';
     import {Position} from '../../models/position';
     import { useProductStore } from '../../stores/products';
+    import { useProjectStore } from '../../stores/projects';
     import { usePositionStore } from '../../stores/positions';
     import { toRupiah } from '../../helpers/currency';
     export default defineComponent({
     props: {
       step: {
-            type: {} as PropType<ProductStep>,
+            type: {} as PropType<ProjectStep>,
             required: true
         }
     },
     setup(props){
+      
+      const projectStore = useProjectStore();
       const productStore = useProductStore();
       const positionStore = usePositionStore();
       const deleteDialog = ref<boolean | false>(false)
@@ -197,7 +201,7 @@
       const maxDuration = ref<number | 1>(1)
       const toggleEditMaxDuration = (value:boolean)=>{
         showDialogDuration.value = value
-        maxDuration.value = props.step.maxDuration
+        maxDuration.value = props.step.duration
       }
       const toggleShowDialogEditSalary = (value:boolean)=>{
         showDialogEditSalary.value= value
@@ -217,14 +221,14 @@
           deleteDialog.value = value
       }
       const deleteStep = ()=>{
-          productStore.deleteSteps((props.step.id || 0))
-          deleteDialog.value = false
+        projectStore.deleteStep((props.step.id || 0))
+        deleteDialog.value = false
       }
       const up = ()=>{
-        productStore.changeRank("up",props.step.id)
+        projectStore.changeRank("up",props.step.id)
       }
       const down = ()=>{
-        productStore.changeRank("down",props.step.id)
+        projectStore.changeRank("down",props.step.id)
       }
       
       const positions = computed(() => {
@@ -246,7 +250,7 @@
           position:selectedPosition.value || {} as Position,
           customSalary:"0"
         }
-        productStore.addWorkertoStep(props.step,worker,product.value.id);
+        projectStore.addWorkerToStep(props.step.id,worker);
         
         addWorkerDialog.value = false
       }
@@ -258,14 +262,18 @@
           salary:salary.value,
           position:selectedPosition.value || {} as Position,
         }
-        productStore.editWorker(props.step,worker,product.value.id)
+        projectStore.editWorker(props.step,worker)
         showDialogEditSalary.value = false
       }
 
       const editDuration = ()=>{
-        productStore.editDurationStep(props.step.id,maxDuration.value);
+        projectStore.editDurationStep(props.step.id,maxDuration.value);
         showDialogDuration.value = false
       }
+
+      onMounted(()=>{
+        positionStore.fetchAll()
+      })
 
       return {
         deleteDialog,

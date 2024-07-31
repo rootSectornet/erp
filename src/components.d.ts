@@ -14,6 +14,7 @@ declare module 'vue' {
     CardStep: typeof import('./components/Atoms/CardStep.vue')['default']
     CategoryProduct: typeof import('./components/Projects/CreateStep/CategoryProduct.vue')['default']
     Create: typeof import('./components/Projects/Create.vue')['default']
+    Customer: typeof import('./components/Projects/CreateStep/Customer.vue')['default']
     DialogAddMaterial: typeof import('./components/Atoms/DialogAddMaterial.vue')['default']
     DialogAddStep: typeof import('./components/Atoms/DialogAddStep.vue')['default']
     Drawer: typeof import('./components/Molecules/Drawer.vue')['default']
@@ -34,6 +35,7 @@ declare module 'vue' {
     TextWithIcon: typeof import('./components/Atoms/TextWithIcon.vue')['default']
     Toolbar: typeof import('./components/Molecules/Toolbar.vue')['default']
     Tools: typeof import('./components/Projects/CreateStep/Tools.vue')['default']
+    WaitingSurvey: typeof import('./components/Projects/WaitingSurvey.vue')['default']
     Worker: typeof import('./components/Projects/CreateStep/Worker.vue')['default']
   }
 }

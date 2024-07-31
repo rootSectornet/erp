@@ -1,24 +1,7 @@
 // stores/drawer.ts
 import { defineStore } from 'pinia';
 import { Position } from '../models/position';
-
-const samplePositions : Position[] = [
-    {
-        id:1,
-        name:"Tukang coli",
-        salary:"230000"
-    },
-    {
-        id:2,
-        name:"Kenek sodok",
-        salary:"130000"
-    },
-    {
-        id:3,
-        name:"Tukang Lihat",
-        salary:"330000"
-    },
-]
+import positionServices from '../services/position';
 
 interface PositionState {
     positions : Position[],
@@ -26,7 +9,7 @@ interface PositionState {
 
 export const usePositionStore = defineStore('positions', {
   state: () : PositionState => ({
-    positions : samplePositions
+    positions : []
   }),
   getters: {
     listPosition(state): Position[] {
@@ -34,5 +17,11 @@ export const usePositionStore = defineStore('positions', {
     }
   },
   actions: {
+    fetchAll(){
+      positionServices.fetchAll()
+      .then((results:Position[])=>{
+        this.positions = results
+      })
+    }
   },
 });
