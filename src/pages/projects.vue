@@ -1,8 +1,19 @@
 <template>
     <div>
         <Appbar :appBarTitle="'Project Management'"/>
-        <ProjectTabs/>
-        <Create/>
+        
+        <v-overlay
+          v-model="loading"
+          class="align-center justify-center"
+          :close-on-back="false"
+          :close-on-content-click="false"
+        >
+          <v-progress-circular
+            color="primary"
+            size="64"
+            indeterminate
+          ></v-progress-circular>
+        </v-overlay>
         <v-fab
           key="mdi-plus"
           color="green"
@@ -16,6 +27,8 @@
           width="0px !important"
           @click="toggleCreate"
         ></v-fab>
+        <ProjectTabs/>
+        <Create/>
     </div>
   </template>
   
@@ -34,8 +47,12 @@
       const toggleCreate = () => {
         projectStore.toggleCreate(!projectStore.showCreate);
       };
+      const loading = computed(()=>{
+        return projectStore.projectLoading
+      })
       return {
-        toggleCreate
+        toggleCreate,
+        loading
       }
     }
   })

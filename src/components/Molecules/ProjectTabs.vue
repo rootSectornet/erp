@@ -25,20 +25,19 @@
 
 <script>
 import { markRaw } from 'vue';
-import Ongoing from '../Projects/Ongoing.vue';
+import WaitingSurvey from '../Projects/WaitingSurvey.vue';
 
 export default {
   data() {
     return {
       currentItem: 'ongoing',
       items: [
-        { title: "On-going", key: "ongoing", content: Ongoing },
-        { title: "Done", key: "done", content: Ongoing }
+        { title: "Waiting Survey", key: "waitingSurvey", content: WaitingSurvey }
       ]
     };
   },
   components: {
-    Ongoing: markRaw(Ongoing)
+    WaitingSurvey: markRaw(WaitingSurvey)
   }
 };
 </script>

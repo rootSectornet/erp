@@ -6,7 +6,7 @@
       <div class="px-3 d-flex py-2 justify-space-between">
         <div class="">
           <p class="fs-14"><b>{{ project.projectNo }}</b></p>
-          <p class="fs-12 text-muted"><i>{{ project.productName }}</i></p>
+          <p class="fs-12 text-muted"><i>{{ project.name }}</i></p>
         </div>
         <div>
           <v-menu
@@ -26,7 +26,7 @@
       </div>
       <div class="d-flex py-3 px-2 justify-space-between text-primary">
         <TextWithIcon icon="mdi-cash" :text="`${toRupiah(project.amount)}`"/>
-        <TextWithIcon icon="mdi-clock-time-seven-outline" :text="`${project.durationNumber} ${toCapitalized(project.durationType)}`"/>
+        <TextWithIcon icon="mdi-clock-time-seven-outline" :text="`${project.duration} days`"/>
       </div>
       <div class="d-flex px-2">
       </div>
@@ -34,9 +34,9 @@
   
       <v-card-actions class="d-flex">
           <v-chip
-            :color="ProjectStatusChip[project.status].color"
+            :color="ProjectStatusChip[project.type].color"
           >
-            {{ toCapitalized(ProjectStatusChip[project.status].title) }}
+            <TextWithIcon icon="mdi-clock-time-seven-outline" :text="`${moment(project.survey_date).format('LL')}`"/>
           </v-chip>
       </v-card-actions>
     </v-card>
@@ -44,14 +44,15 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import {Project,ProjectStatusChip} from '../../models/project'
+import {ProjectItem,ProjectStatusChip} from '../../models/project'
 import {toRupiah} from '../../helpers/currency'
 import {toCapitalized} from '../../helpers/helper'
 import TextWithIcon from '../Atoms/TextWithIcon.vue';
+import moment from 'moment';
 export default defineComponent({
   props: {
     project: {
-      type: {} as PropType<Project>,
+      type: {} as PropType<ProjectItem>,
       required: true
     }
   },
@@ -62,7 +63,8 @@ export default defineComponent({
     return {
       toRupiah,
       toCapitalized,
-      ProjectStatusChip
+      ProjectStatusChip,
+      moment
     }
   }
 })

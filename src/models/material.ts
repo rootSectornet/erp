@@ -43,9 +43,9 @@ export interface Material{
     price:string;
     unit:string;
     type: MaterialType;
-    isActive : boolean;
-    createdAt : Date;
-    updatedDt : Date;
+    is_active : boolean;
+    created_at : Date;
+    updated_dt : Date;
 }
 
 export interface ProjectMaterial{
@@ -59,4 +59,11 @@ export interface ProjectMaterial{
     deliveryStatus:DeliveryStatus;
     reason:string;
     remainingQty?:number
+}
+
+export interface SearchMaterialResponse{
+    code:number;
+    message:string;
+    data:Material[];
+
 }

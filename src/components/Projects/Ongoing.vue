@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent,ref } from 'vue'
+import { computed, defineComponent,onMounted,ref } from 'vue'
 import {useProjectStore} from '../../stores/projects';
 import ProjectCard from './ProjectCard.vue';
 
@@ -24,6 +24,9 @@ export default defineComponent({
     const projectStore = useProjectStore()
     const search = ref<string>('');
     const items = computed(() => projectStore.listProjects);
+    onMounted(()=>{
+      projectStore.fetchByType('OFFERING',0,10);
+    })
     return {
       items,
       search

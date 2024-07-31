@@ -3,12 +3,11 @@ import { Position } from "./position";
 export interface Product {
     id: number;
     name: string;
-    idCategory:number;
-    isActive: boolean;
+    id_category:number;
+    is_active: boolean;
     selected : boolean;
-    createdAt: Date;
-    updatedDt: Date;
-    productSteps? : ProductStep[]
+    created_at: Date;
+    updated_dt: Date;
 }
 
 export interface ProductStep {
@@ -17,15 +16,15 @@ export interface ProductStep {
     notes?: string;
     rank: number;
     maxDuration:number;
-    workers:Workers[];
-    totalCost:string;
     additionalCost:string;
+    is_active:boolean;
+    created_at:string;
+    updated_dt:string;
 }
 
-
-export interface Workers {
-    id:number;
-    position:Position;
-    salary:string;
-    customSalary:string;
+export interface ProductStepResponse{
+    code:string;
+    message:string;
+    data:ProductStep[];
 }
+
