@@ -16,11 +16,7 @@
           <v-icon icon="mdi mdi-label-variant"></v-icon>
         </template>
         <template v-slot:append>
-          <v-btn
-            color="blue-darken-4"
-            icon="mdi-information"
-            variant="text"
-          >{{ category.products_count }}</v-btn>
+          
         </template>
       </v-list-item>
     </v-list>

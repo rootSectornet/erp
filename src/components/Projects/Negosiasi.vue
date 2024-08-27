@@ -45,7 +45,6 @@
       <!-- Daftar Biaya Proyek akhir -->
     </v-card>
 
-
     <!-- Laba awal -->
     <div class="mb-2">
       <h3>Perkiraan laba</h3>
@@ -74,12 +73,20 @@
 
       <!-- Keuntungan awal -->
       <div class="mb-2">
-        <div class="d-flex justify-space-between">
-          <h5>Kustom Keuntungan</h5>
-          <v-list-item-title class="color-green">+Rp.0000</v-list-item-title>
+        <h5>Kustom Keuntungan</h5>
+        <div class="d-flex justify-space-between align-items-center">
+          <v-slider
+            v-model="customProfit"
+            min="0"
+            max="100"
+            step="1"
+            class="mx-4"
+            thumb-label
+          ></v-slider>
+          <span>{{ customProfit }}%</span>
         </div>
       </div>
-      <v-divider class="my-5"></v-divider>
+      <v-divider class="mt-3 mb-5"></v-divider>
       <!-- Keuntungan akhir -->
 
       <!-- Biaya Proyek awal -->
@@ -92,12 +99,18 @@
       <v-divider class="my-5"></v-divider>
       <!-- Biaya Proyek akhir -->
       <!-- Pengajuan harga awal -->
-      <div class="">
-        <div class="d-flex justify-space-between">
-          <h5>Harga yang diajukan</h5>
-          <v-list-item-title class="color-green">+Rp.0000</v-list-item-title>
+      <div class="mb-2">
+        <h5>Harga yang diajukan</h5>
+        <div class="d-flex justify-space-between align-items-center">
+          <input
+            v-model="proposedPrice"
+            type="number"
+            class="price-input"
+            placeholder="Masukkan harga"
+          />
         </div>
       </div>
+
       <!-- Pengajuan harga akhir -->
     </v-card>
 
@@ -105,25 +118,37 @@
     <v-card class="pa-5 my-3">
       <!-- Duarasi awal -->
       <div class="mb-2">
-        <div class="d-flex justify-space-between">
-          <h5>Durasi Pengerjaan</h5>
-          <v-list-item-title class="color-green">3 hari</v-list-item-title>
+        <h4 class="color">Total Minimum Biaya Proyek</h4>
+        <div class="d-flex justify-space-between align-items-center mb-2">
+          <h4>Rp.100.000</h4>
+        </div>
+        <div class="d-flex justify-space-between mt-5">
+          <h5>Total Biaya Proyek</h5>
+          <v-list-item-title class="color-green">+Rp.0000</v-list-item-title>
+        </div>
+        <div class="d-flex justify-space-between mt-1">
+          <h5>Potensi Untung/Rugi</h5>
+          <v-list-item-title class="color-green">+Rp.0000</v-list-item-title>
         </div>
       </div>
       <v-divider class="my-5"></v-divider>
       <div class="d-flex justify-content-between mt-5">
-        <v-btn color="blue" class="mr-auto">Edit</v-btn>
         <v-btn color="blue" class="ml-auto">Simpan</v-btn>
       </div>
       <!-- Duarasi akhir -->
-
-      
     </v-card>
   </div>
 </template>
 
 <script>
 export default {
+  setup() {
+    const customProfit = ref(0); // Awal nilai keuntungan
+
+    return {
+      customProfit,
+    };
+  },
   data() {
     return {
       materials: [
@@ -184,5 +209,18 @@ export default {
 }
 .color-green {
   color: green;
+}
+.price-input {
+  padding: 5px;
+  font-size: 16px;
+  width: 100%;
+  max-width: 100%; /* Atur lebar maksimal sesuai keinginan */
+}
+/* Hilangkan spinner pada input bertipe number di Firefox */
+.price-input[type="number"] {
+  -moz-appearance: textfield;
+}
+.color{
+  color: #616161;
 }
 </style>
