@@ -45,11 +45,13 @@ import { useProductStore } from '../../stores/products';
   import { useMaterialStore } from '../../stores/materials';
   import { useCustomerStore } from '../../stores/customer';
 import CategoryProduct from './CreateStep/CategoryProduct.vue';
+import DataCostumer from './CreateStep/DataCostumer.vue';
 import Material from './CreateStep/Material.vue';
 import Step from './CreateStep/Step.vue';
 import Customer from './CreateStep/Customer.vue';
 import Result from './CreateStep/Result.vue';
 import {ProjectPayload,PayloadMaterial,ProjectStep} from '../../models/project';
+import Ukuran from './CreateStep/Ukuran.vue';
   export default defineComponent({
     setup() {
       const projectStore = useProjectStore();
@@ -65,30 +67,43 @@ import {ProjectPayload,PayloadMaterial,ProjectStep} from '../../models/project';
       const listCreateStep : ProjectStateStep[] =  [
         {
           id:1,
+          key:"DataCostumer",
+          title:"Data Cosutmer",
+          component: DataCostumer
+        },
+        {
+          id:2,
           key:"PRODUCT",
           title:"Pilih Product",
           component: CategoryProduct
         },
         {
-          id:2,
+          id:3,
+          key:"UKURAN",
+          title:"Pengukuran",
+          component: Ukuran
+        },
+        {
+          id:4,
           key:"MATERIAL",
           title:"Pilih Material",
           component: Material
         },
+        
         {
-          id:3,
+          id:5,
           key:"STEP",
           title:"Step Pengerjaan",
           component: Step
         },
         {
-          id:4,
+          id:6,
           key:"CUSTOMER",
           title:"Data Customer",
           component: Customer
         },
         {
-          id:6,
+          id:7,
           key:"RESULT",
           title:"Perkiraan Biaya Proyek",
           component:Result
