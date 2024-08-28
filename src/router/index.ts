@@ -27,7 +27,13 @@ const customRoutes = [
     name: 'EditProjectDetail',
     component: () => import('../components/Projects/EditProjectDetail.vue'), // Tambahkan rute ini
     props: true
-  }
+  },
+  {
+    path: '/jadwal',
+    name: 'Jadwal',
+    component: () => import('../components/Projects/Jadwal.vue'), // Tambahkan rute ini
+    props: true
+  },
   
 ]
 

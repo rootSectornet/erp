@@ -26,18 +26,21 @@
 <script>
 import { markRaw } from 'vue';
 import WaitingSurvey from '../Projects/WaitingSurvey.vue';
+import Estimasi from '../Projects/Estimasi.vue';
 
 export default {
   data() {
     return {
-      currentItem: 'ongoing',
+      currentItem: 'estimasi', // Set default selected tab
       items: [
-        { title: "Waiting Survey", key: "waitingSurvey", content: WaitingSurvey }
+        { title: "Estimasi", key: "estimasi", content: Estimasi },
+        { title: "Hasil Survey", key: "hasilSurvey", content: WaitingSurvey }
       ]
     };
   },
   components: {
-    WaitingSurvey: markRaw(WaitingSurvey)
+    WaitingSurvey: markRaw(WaitingSurvey),
+    Estimasi: markRaw(Estimasi)
   }
 };
 </script>
