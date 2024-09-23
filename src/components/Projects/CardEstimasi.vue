@@ -5,7 +5,7 @@
         <p class="fs-14">
           <b>Nama Costumer</b>
         </p>
-        <p class="fs-12 text-muted">
+        <p class="fs-14">
           <i>{{ project.name }}</i>
         </p>
       </div>
@@ -22,7 +22,7 @@
           <v-list>
             <router-link
               :to="{
-                name: 'UnduhPdf',
+                name: 'EstimasiDetail',
                 params: { projectNo: project.projectNo },
               }"
               class="text-decoration-none"
@@ -37,16 +37,17 @@
         </v-menu>
       </div>
     </div>
-    <div class="d-flex py-1 text-primary">
-      <TextWithIcon icon="mdi-cash" :text="toRupiah(project.amount)" />
+    <div class="d-flex text-primary">
+      <TextWithIcon style="font-size: 1.1em; font-weight: bold;" icon="mdi-cash" :text="toRupiah(project.amount)" />
     </div>
     <div class="px-3 mb-2">
-      <p>Jln pantura</p>
+      <p>Jln pantura</p>mvmvmcmc
     </div>
     <v-divider></v-divider>
     <div class="ml-auto py-3 px-3">
       <router-link to="/jadwal" class="text-decoration-none">
-        <v-btn color="blue" class="px-3">Buat Jadwal</v-btn>
+        <v-btn color="blue" style="font-size: 0.7em; padding: 7px;">Buat Jadwal</v-btn>
+
       </router-link>
     </div>
 

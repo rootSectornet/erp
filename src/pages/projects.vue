@@ -1,7 +1,6 @@
 <template>
     <div>
         <Appbar :appBarTitle="'Project Management'"/>
-        
         <v-overlay
           v-model="loading"
           class="align-center justify-center"
@@ -14,19 +13,7 @@
             indeterminate
           ></v-progress-circular>
         </v-overlay>
-        <v-fab
-          key="mdi-plus"
-          color="green"
-          icon="mdi-plus"
-          class="mb-4"
-          location="bottom center"
-          size="64"
-          absolute
-          app
-          appear
-          width="0px !important"
-          @click="toggleCreate"
-        ></v-fab>
+        
         <ProjectTabs/>
         <Create/>
     </div>

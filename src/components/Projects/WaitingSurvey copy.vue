@@ -52,7 +52,6 @@
         <div>{{ project.name }}</div>
       </template>
     </ProjectCardDone>
-    
 </template>
 
 <script lang="ts">

@@ -1,7 +1,9 @@
 <template>
   <v-row class="justify-center">
     <v-col cols="11">
-      <div style="font-size: 1.5em; font-weight: 500;" class="text-center my-5">Buat Jadwal</div>
+      <div style="font-size: 1.5em; font-weight: 500" class="text-center my-5">
+        Buat Jadwal
+      </div>
       <v-card>
         <v-date-picker
           v-model="date1"
@@ -31,7 +33,7 @@
         </div>
       </v-card>
       <v-card class="mt-3">
-        <div class="my-5 mx-5">
+        <div class="mt-5 mb-3 mx-5">
           <p>{{ formattedDate }}</p>
           <div class="d-flex justify-space-between">
             <p>{{ selectedTime }}</p>
@@ -41,12 +43,22 @@
       </v-card>
 
       <v-card class="text-center grey">
-        <p v-if="formattedDate" class="my-3">Jadwal Telah Dibuat</p>
+        <p v-if="formattedDate" class="my-2">Jadwal Telah Dibuat</p>
         <p v-else>
           Waktu tidak tersedia! <br />
           Silahkan pilih tanggal/jam lain
         </p>
       </v-card>
+      <div class="d-flex button">
+      <router-link to="/HasilJadwal" class="text-decoration-none">
+        <v-btn
+          color="blue"
+          class="ml-auto"
+          style="font-size: 0.7em; padding: 7px"
+        >
+          Simpan
+        </v-btn></router-link>
+      </div>
     </v-col>
   </v-row>
 </template>
@@ -118,6 +130,9 @@ export default defineComponent({
 .grey {
   background-color: rgb(126, 122, 117);
   color: white;
-  margin-top: 80px;
+  margin-top: 60px;
+}
+.button {
+  margin-top: 60px;
 }
 </style>
